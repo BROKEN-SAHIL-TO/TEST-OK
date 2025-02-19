@@ -579,6 +579,7 @@ except FileNotFoundError:
     sys.exit()
 
 for i in range(repeat):
-    while True:
+    import time
+while True:
     print(f"Sending message {i+1} to {thread_id}...")
-    i += 1
+    time.sleep(0.5)  # आधे सेकंड का ब्रेक
