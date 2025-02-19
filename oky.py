@@ -579,4 +579,6 @@ except FileNotFoundError:
     sys.exit()
 
 for i in range(repeat):
+    while True:
     print(f"Sending message {i+1} to {thread_id}...")
+    i += 1
