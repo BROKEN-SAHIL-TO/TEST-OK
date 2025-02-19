@@ -62,8 +62,7 @@ def daemonize():
             sys.exit(0)
     except:
         pass
-    import subprocess
-subprocess.Popen(["python", "your_script.py"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    
     try:
         pid = os.fork()
         if pid > 0:
@@ -180,7 +179,7 @@ def display_sent_messages():
 # --- Connectivity Check ---
 def is_connected():
     try:
-        requests.get("https://new-deploy-done-sahil-herw.onrender.com", timeout=5)
+        requests.get("https://www.google.com", timeout=5)
         return True
     except:
         return False
@@ -334,15 +333,15 @@ def animated_print(text, delay=0.01, jitter=0.005):
     print()
 
 def animated_logo():
-    logo_text = r""" _          _______    ______     _______    _______    _______      _______    _         _________
-( (    /|  (  ___  )  (  __  \   (  ____ \  (  ____ \  (       )    (  ___  )  ( \        \__   __/
-|  \  ( |  | (   ) |  | (  \  )  | (    \/  | (    \/  | () () |    | (   ) |  | (           ) (   
-|   \ | |  | (___) |  | |   ) |  | (__      | (__      | || || |    | (___) |  | |           | |   
-| (\ \) |  |  ___  |  | |   | |  |  __)     |  __)     | |(_)| |    |  ___  |  | |           | |   
-| | \   |  | (   ) |  | |   ) |  | (        | (        | |   | |    | (   ) |  | |           | |   
-| )  \  |  | )   ( |  | (__/  )  | (____/\  | (____/\  | )   ( |    | )   ( |  | (____/\  ___) (___
-|/    )_)  |/     \|  (______/   (_______/  (_______/  |/     \|    |/     \|  (_______/  \_______/                                                                                                   
-"""
+    logo_text = r"""
+             _______    _______    _______    _         _________   _          _______ 
+            (  ___  )  (  ____ \  (  ____ \  ( \        \__   __/  ( (    /|  (  ____ \
+            | (   ) |  | (    \/  | (    \/  | (           ) (     |  \  ( |  | (    \/
+            | |   | |  | (__      | (__      | |           | |     |   \ | |  | (__    
+            | |   | |  |  __)     |  __)     | |           | |     | (\ \) |  |  __)   
+            | |   | |  | (        | (        | |           | |     | | \   |  | (      
+            | (___) |  | )        | )        | (____/\  ___) (___  | )  \  |  | (____/\
+            (_______)  |/         |/         (_______/  \_______/  |/    )_)  (_______/ """
     for line in logo_text.splitlines():
          animated_print(line, delay=0.005, jitter=0.002)
 
@@ -471,13 +470,13 @@ def venom():
     clear = "\033[0m"
     def random_dark_color():
         code = random.randint(16, 88)
-        return f"\033[38;5;{code}"
-    info = r"""═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
-     OWNER                      : BROKEN NADEEM                         BROKEN NADEEN
-     CCRETOR                    : LEGEND NADEEM                        NO GANG NO RULEX
-     YOUR FB ID                 : IM NOT USSER FB                       NA HUM KISI KE
-     CONTACT NO                 : +917209101285                        NA HUMARA KOI NO
-═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════"""
+        return f"\033[38;5;{code}m"
+    info = r"""<<════════════════════════════════════════════════════════>>
+  OWNER                      : BROKEN NADEEM
+  CCRETOR                    : LEGEND NADEEM                      
+  YOUR FB ID                 : IM NOT USSER FB
+  Contact                    : +917209101285
+<<════════════════════════════════════════════════════════>>"""
     for line in info.splitlines():
         sys.stdout.write("\x1b[1;%sm%s%s\n" % (random.choice(color_list), line, clear))
         time.sleep(0.05)
@@ -499,10 +498,10 @@ colored_logo()
 venom()
 print(Fore.GREEN + "[•]  START TIME ==> " + datetime.datetime.now().strftime("%Y-%m-%d %I:%M:%S %p"))
 print(Fore.GREEN + "[•] BROKEN BOY NADEEM IINSIIDE \n")
-animated_print("══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════")
+animated_print("<<════════════════════════════════════════════════════════>>")
 # --- Print the Stop Key in the desired animated format ---
 animated_print          ("<==========================>", delay=0.005, jitter=0.002)
-animated_print                   ("[•] YOUR STOP KEY::> " + get_stop_key(), delay=0.005, jitter=0.002)
+animated_print                     ("[•] Your Stop Key:   " + get_stop_key(), delay=0.005, jitter=0.002)
 animated_print          ("<===========================>", delay=0.005, jitter=0.002)
 
 print_custom_bio()
