@@ -518,51 +518,65 @@ else:
 
 os.system('espeak -a 300 "TOKAN FILE NAME DALO"')
 token_file = input("[+] ENTER TOKEN FILE  ::> ").strip()
-animated_print("<<═════════════════════════════════════════════════════════════════════════>>")
-with open(token_file, 'r') as f2:
-    token_data = f2.read()
-tokens = [line.strip() for line in token_data.splitlines() if line.strip()]
-if not tokens:
+
+try:
+    with open(token_file, 'r') as file:
+        tokens = [line.strip() for line in file.readlines()]
+except FileNotFoundError:
+    print(Fore.RED + "[✗] Token file not found!")
     sys.exit()
 
-access_token = tokens[0]
-payload = {'access_token': access_token}
-a = "https://graph.facebook.com/v15.0/me"
-b = requests.get(a, params=payload)
-d = json.loads(b.text)
-if 'name' not in d:
+valid_tokens = []
+
+for index, token in enumerate(tokens, start=1):
+    token = token.strip()
+    response = requests.get(f'https://graph.facebook.com/me?access_token={token}')
+    if response.status_code == 200:
+        account_info = response.json()
+        print(f"Token {index}: \033[1;32;40m[✓] Account Name - {account_info.get('name')}")
+        valid_tokens.append(token)
+    else:
+        print(f"Token {index}: \033[1;31;40m[✗] Invalid or expired token detected.")
+
+if not valid_tokens:
+    print(Fore.RED + "[✗] No valid tokens found. Exiting...")
     sys.exit()
-mb = d['name']
+
+mb = account_info.get('name', 'Unknown')
 print(Fore.GREEN + "YOUR PROFILE NAME ::> " + mb + "\n")
-animated_print("<<═════════════════════════════════════════════════════════════════════════>>")
-start_queue_processor()
 
 os.system('espeak -a 300 "CONVO ID DALO JAHA GALI DENI HA"')
 thread_id = input("[+] ENTER CONVO UID ::> ").strip()
-animated_print("<<═════════════════════════════════════════════════════════════════════════>>")
+
 os.system('espeak -a 300 "TATE KA NAME DALO"')
 mn = input("[+] ENTER HATER NAME ::> ").strip()
-animated_print("<<═════════════════════════════════════════════════════════════════════════>>")
+
 os.system('espeak -a 300 "GALI FILE DALO"')
 ms = input("[+] ENTER GALI FILE ::> ").strip()
-animated_print("<<═════════════════════════════════════════════════════════════════════════>>")
+
 os.system('espeak -a 300 "FILE KITNI BAAR REPIT KARANI HA"')
-repeat = int(input("[+] KITNI BAAR IS GALI KO REAOLAD KARNA HAI ::> "))
-animated_print("<<═════════════════════════════════════════════════════════════════════════>>")
-os.system('espeak -a 300 "SPEED DALO YAR"')
-timm = int(input("[+] ENTER SPEED IN SECOND ::> "))
-animated_print("<<═════════════════════════════════════════════════════════════════════════>>")
-print(Fore.BLUE + "\n________All Done....Loading Profile Info.....!")
-print(Fore.BLUE + "Your Profile Name => " + mb + "\n")
-animated_print("<<═════════════════════════════════════════════════════════════════════════>>")
 try:
-    ns = open(ms, 'r').readlines()
-except:
+    repeat = int(input("[+] KITNI BAAR IS GALI KO REPEAT KARNA HAI ::> "))
+except ValueError:
+    print(Fore.RED + "[✗] Invalid input for repeat count!")
     sys.exit()
 
-if daemonize_mode:
-    daemonize()
+os.system('espeak -a 300 "SPEED DALO YAR"')
+try:
+    timm = int(input("[+] ENTER SPEED IN SECOND ::> "))
+except ValueError:
+    print(Fore.RED + "[✗] Invalid input for speed!")
+    sys.exit()
+
+print(Fore.BLUE + "\n________All Done....Loading Profile Info.....!")
+print(Fore.BLUE + "Your Profile Name => " + mb + "\n")
+
+try:
+    with open(ms, 'r') as file:
+        ns = file.readlines()
+except FileNotFoundError:
+    print(Fore.RED + "[✗] Gali file not found!")
+    sys.exit()
 
 for i in range(repeat):
-    check_stop()
-    message_on_messenger(thread_id)
+    print(f"Sending message {i+1} to {thread_id}...")
