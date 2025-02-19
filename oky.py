@@ -580,5 +580,7 @@ except FileNotFoundError:
 
 for i in range(repeat):
     import time
+import time
 while True:
-print(f"Sending message {i+1} to {thread_id}...")  # गलत इंडेंटेशन
+    print(f"Sending message {i+1} to {thread_id}...")
+    time.sleep(0.5)  # आधे सेकंड का ब्रेक
